@@ -19,11 +19,19 @@ class quick_testing:
             for output in outputs:
                 model_name = All_in_one(case,self.model,output,self.test_size)
                 predictions,y_val,r2_score,model,error = model_name.train_model()
-                plt.plot()
+                
                 print(f"The train data r2 score of {output} is { r2_score} for case {case}")
-                # print(f"The cross validation score of {output} is {r2_score} and error {error} for case {case} " )
+                # plt.subplot(2,1,1)
+                # plt.plot(predictions,linestyle=None,label='Predictions')
+                # plt.plot(y_val,linestyle=None,label='Actual')
+                model_name.plot_data(predictions,y_val,'Validation')
                 r2_score_test,y_test,test_preds = model_name.test_model(model)
                 print(f"The test data r2 score of {output} is { r2_score_test} for case {case}")
+                model_name.plot_data(test_preds,y_test,'Test')
+                # plt.subplot(2,1,2)
+                # plt.plot(y_test,linestyle=None,label='Actual')
+                # plt.plot(test_preds,linestyle=None,label='Predictions')
+                # plt.savefig(f'{self.model}_{output}.png', bbox_inches='tight')
 if __name__ == '__main__':
   
   parser = argparse.ArgumentParser(description='Testing the Machine learning Algorithms for ETSC')
